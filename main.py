@@ -21,7 +21,7 @@ np.set_printoptions(suppress=True)
 
 ####### Genetic Algorithm execution
 
-# gen = GeneticAlgorithm(200, dom)
+# gen = GeneticAlgorithm(200, 2, dom)
 # gen.fitness(fitness1)
 
 # gen.run(GASelectionTournament(), GACrossOverLinearOperator(), GAMutationGaussian())
@@ -30,8 +30,8 @@ np.set_printoptions(suppress=True)
 
 ####### Differential Evolution execution
 
-# de = DifferentialEvolution(10, dom)
-# de.fitness(fitness1)
+# de = DifferentialEvolution(10, 2, dom)
+# de.fitness(Fitness.fitness1)
 
 # de.run(DESelectionBest(), DECrossOverBin(), DEMutationRand1())
 
@@ -47,8 +47,20 @@ np.set_printoptions(suppress=True)
 # pso.run()
 # print pso.population
 
-Fitness.initAeroData()
-Fitness.LSE([0.2, 0.1, 0.3])
+####### Diff Evolution with LSE
+
+# Fitness.initAeroData()
+
+# dom2 = (-100,100)
+
+# de = DifferentialEvolution(20, 4, dom2)
+# print de.population
+
+# de.fitness(Fitness.LSE)
+
+# de.run(DESelectionBest(), DECrossOverBin(), DEMutationRand1())
+
+# print de.population
 
 
 

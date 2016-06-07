@@ -1,7 +1,7 @@
 import numpy as np
 import math 
 import plotting as plot
-from fitness import Fitness
+from fitnessFunctions import Fitness
 from geneticAlgorithm import GeneticAlgorithm
 from differentialEvolution import DifferentialEvolution
 from PSO import PSO

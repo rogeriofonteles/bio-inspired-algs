@@ -1,9 +1,11 @@
 import numpy as np
 import math
+from numpy import linalg as LA
 
 class Fitness():
 
 	aerodata = []
+	w = 1
 
 	@staticmethod
 	def fitness1(x):		
@@ -22,3 +24,8 @@ class Fitness():
 	def LSE(cls, beta):			
 		squareError = (np.array([[data[0]**i for i in xrange(len(beta))] for data in cls.aerodata]).dot(np.array(beta)) - np.array([data[1] for data in cls.aerodata]).T)**2
 		return squareError.sum()
+
+	@classmethod
+	def LSEwR(cls, beta):			
+		squareError = (np.array([[data[0]**i for i in xrange(len(beta))] for data in cls.aerodata]).dot(np.array(beta)) - np.array([data[1] for data in cls.aerodata]).T)**2
+		return squareError.sum() + cls.w*LA.norm(beta)**2

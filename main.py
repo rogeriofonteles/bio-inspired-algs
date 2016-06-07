@@ -11,9 +11,11 @@ from GAMutation import *
 from DEMutation import *
 from DESelection import *
 from DECrossOver import *
-
+0
 
 dom = (-5, 12)
+dom2 = (-100,100)
+
 np.set_printoptions(suppress=True)
 
 # plot.plot3d(fitness)
@@ -51,8 +53,6 @@ np.set_printoptions(suppress=True)
 
 # Fitness.initAeroData()
 
-# dom2 = (-100,100)
-
 # de = DifferentialEvolution(20, 4, dom2)
 # print de.population
 
@@ -61,6 +61,19 @@ np.set_printoptions(suppress=True)
 # de.run(DESelectionBest(), DECrossOverBin(), DEMutationRand1())
 
 # print de.population
+
+####### Diff Evolution with LSEwR
+
+Fitness.initAeroData()
+
+de = DifferentialEvolution(20, 4, dom2)
+print de.population
+
+de.fitness(Fitness.LSEwR)
+
+de.run(DESelectionBest(), DECrossOverBin(), DEMutationRand1())
+
+print de.population
 
 
 

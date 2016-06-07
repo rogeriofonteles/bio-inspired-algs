@@ -3,9 +3,9 @@ from metaHeuristics import MetaHeuristics
 
 class EvolutionaryAlgorithm(MetaHeuristics):
 
-	def __init__(self, populationNumber, (x,y)):
+	def __init__(self, populationNumber, dim, (x,y)):
 		MetaHeuristics.__init__(self)
-		MetaHeuristics.generateFuncPopulation(self, populationNumber, (x,y))	
+		MetaHeuristics.generateFuncPopulation(self, populationNumber, dim, (x,y))	
 
 	def selectionAlgorithm(self, selectionAlg):		
 		selectionAlg.setParams(self)

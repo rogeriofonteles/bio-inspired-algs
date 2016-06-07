@@ -1,6 +1,7 @@
 import numpy as np
 import math 
 import plotting as plot
+from fitness import Fitness
 from geneticAlgorithm import GeneticAlgorithm
 from differentialEvolution import DifferentialEvolution
 from PSO import PSO
@@ -11,11 +12,6 @@ from DEMutation import *
 from DESelection import *
 from DECrossOver import *
 
-def fitness1(x):
-	return 20 + x[0]**2 + x[1]**2 - 10*(math.cos(2*math.pi*x[0])+math.cos(2*math.pi*x[1]))
-
-def fitness2(x):
-	return x[0]**2 + x[1]**2
 
 dom = (-5, 12)
 np.set_printoptions(suppress=True)
@@ -50,6 +46,9 @@ np.set_printoptions(suppress=True)
 
 # pso.run()
 # print pso.population
+
+Fitness.initAeroData()
+Fitness.LSE([0.2, 0.1, 0.3])
 
 
 

@@ -7,8 +7,8 @@ class MetaHeuristics:
 		self.offsprings = []
 		self.parentsVector = []
 
-	def generateFuncPopulation(self, populationNumber, (d1,d2)):
-		self.population = np.random.rand(populationNumber, 2)*(d2-d1)+np.ones((populationNumber,2))*d1
+	def generateFuncPopulation(self, populationNumber, dim, (d1,d2)):
+		self.population = np.random.rand(populationNumber, dim)*(d2-d1)+np.ones((populationNumber, dim))*d1
 
 	def generateEquallySpreadPopulation(self, maskSize, (d1,d2)):
 		xv, yv = np.meshgrid(np.arange(d1,d2,(d2-d1)/float(maskSize)), np.arange(d1,d2,(d2-d1)/float(maskSize)))				

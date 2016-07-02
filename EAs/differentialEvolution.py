@@ -10,10 +10,11 @@ class DifferentialEvolution(evolAlg):
 		self.fitness = fitness	
 
 	def run(self, selectionAlg, crossoverAlg, mutationAlg):		
-		for num in range(1,1000):			
+		for num in range(1,50):			
 			self.parentsVector = self.mutationAlgorithm(mutationAlg)							
 			self.offsprings = self.crossoverAlgorithm(crossoverAlg)						
-			self.population = self.selectionAlgorithm(selectionAlg)			
+			self.population = self.selectionAlgorithm(selectionAlg)		
+			print num	
 			
 
 		#print np.array([self.fitness(x,y) for [x,y] in self.population])

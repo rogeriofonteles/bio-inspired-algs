@@ -15,14 +15,16 @@ from EAs.CrossOverAlgs.DECrossOver import *
 from FuzzyHelpers.fuzzyAlgorithm import *
 from FuzzyHelpers.fuzzySets import *
 from FuzzyHelpers.fuzzyInference import *
+from FuzzyHelpers.defuzzyfication import *
+from fileHelper import FileExtractor
 
 dom = (-5, 12)
 dom2 = (-100,100)
 
 np.set_printoptions(suppress=True)
 
-plt.plot(np.arange(0, 100), (np.arange(0, 100) - 30)/float(10))
-plt.show()
+
+#plt.show()
 
 # plot.plot3d(fitness)
 # plot.plotcontour(fitness)
@@ -81,16 +83,33 @@ plt.show()
 
 # print de.population
 
-########Fuzzy Algorithm 
+########Fuzzy Algorithm Mandani
+
+# fuzzy_alg = Fuzzy()
+# fuzzy_alg.setFuzzyInputSets(TriangularFuzzySets([(-15,40), (30,50), (45,55), (50,70), (60,120)]))
+# fuzzy_alg.setFuzzyInputSets(TriangularFuzzySets([(-90,10), (0,50), (40,90), (80,100), (90,140), (130,180), (170,270)]))
+# fuzzy_alg.setFuzzyOutputSets(TriangularFuzzySets([(-30,-15), (-25,-5), (-10,0), (-5,5), (0,10), (5,25), (15,30)]))
+
+# ruleMatrix = FileExtractor.ruleMatrix()
+
+# solution = fuzzy_alg.run(MandaniInference(ruleMatrix), [47.5, 99], AggregateThenCentroid())
+# solution2 = fuzzy_alg.run(MandaniInference(ruleMatrix), [47.5, 99], CentroidThenAggregate())
+# print solution 
+# print solution2 
+
+########Fuzzy Algorithm Takagi-Sugeno
+
+Fitness.initGauss3Data("gauss3.dat")
+
+takagiInstance = TakagiSugenoInference(Fitness.takagiSugeno)
+
+print takagiInstance.fuzzyInterval
+print takagiInstance.ruleMatrix
 
 fuzzy_alg = Fuzzy()
-fuzzy_alg.setFuzzyInputSets(TriangularFuzzySets([(-15,40), (30,50), (45,55), (50,70), (60,120)]))
-fuzzy_alg.setFuzzyInputSets(TriangularFuzzySets([(-90,10), (0,50), (40,90), (80,100), (90,140), (130,180), (170,270)]))
-fuzzy_alg.setFuzzyOutputSets(TriangularFuzzySets([(-30,-15), (-25,-5), (-10,0), (-5,5), (0,10), (5,25), (15,30)]))
+fuzzy_alg.setFuzzyInputSets(GaussianFuzzySets(takagiInstance.fuzzyInterval))
 
-ruleMatrix = []
-
-fuzzy_alg.run(MandaniInference(ruleMatrix), [11, 91])
+solution = [fuzzy_alg.run(takagiInstance, [i]) for i in range(0,250)]
 
 
 

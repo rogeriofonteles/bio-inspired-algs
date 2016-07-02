@@ -7,8 +7,21 @@ class DESelection:
 
 class DESelectionBest(DESelection):	
 
-	def run(self):				
-		return [(test if (self.genAlgObj.fitness(test) < self.genAlgObj.fitness(offspring)) else (offspring)) for [test, offspring] in zip(self.genAlgObj.population, self.genAlgObj.offsprings)]
+	def run(self):		
+		finalPopulation = []
+		for [test, offspring] in zip(self.genAlgObj.population, self.genAlgObj.offsprings):
+			testFitness = self.genAlgObj.fitness(test)
+			offsprinFitness = self.genAlgObj.fitness(offspring)
+			if testFitness <= offsprinFitness:
+				
+				finalPopulation.append(test)
+			else:
+				
+				finalPopulation.append(offspring)
+
+	 	return finalPopulation
+		
+		
 
 
 		

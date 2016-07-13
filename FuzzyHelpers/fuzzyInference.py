@@ -40,7 +40,7 @@ class MandaniInference(FuzzyInference):
 
 
 	def run(self, value):
-		self.pertinenceCombination(0, [])		
+		self.pertinenceCombination(0, [])					
 		return np.array([(self.ruleMatrix[self.inferVector[i][0]], self.inferVector[i][1]) for i in range(len(self.inferVector))])
 
 

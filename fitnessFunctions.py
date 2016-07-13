@@ -32,12 +32,12 @@ class Fitness():
 
 	@classmethod
 	def LSE(cls, beta):		
-		squareError = (np.array([[data[0]**i for i in xrange(len(beta))] for data in cls.aerodata]).dot(np.array(beta)) - np.array([data[1] for data in cls.aerodata]).T)**2
+		squareError = np.array([(sum([beta[i]*(data[0]**i) for i in range(len(beta))]) - data[1])**2 for data in cls.aerodata])
 		return squareError.sum()
 
 	@classmethod
 	def LSEwR(cls, beta):
-		squareError = (np.array([[data[0]**i for i in xrange(len(beta))] for data in cls.aerodata]).dot(np.array(beta)) - np.array([data[1] for data in cls.aerodata]).T)**2
+		squareError = np.array([(sum([beta[i]*(data[0]**i) for i in range(len(beta))]) - data[1])**2 for data in cls.aerodata])
 		return squareError.sum() + cls.w*LA.norm(beta)**2
 
 	@classmethod
@@ -54,7 +54,8 @@ class Fitness():
 			result = [sum([((inferedValues[i][j][1]/sumPertinences[i])*(sugenoRuleMatrix[inferedValues[i][j][0]][1]*i+sugenoRuleMatrix[inferedValues[i][j][0]][0]) if sumPertinences[i] > 0 else 0) for j in range(len(inferedValues[i]))]) for i in range(0, 250)]	
 			
 			if is_print:
-				plt.plot(range(0, 250), result)		
+				plt.plot(range(0, 250), result, "b-")		
+				plt.plot(range(0, 250), cls.gauss3[:,0], "rx")		
 				plt.show()
 			
 			return sum([(result[i] - cls.gauss3[i][0])**2 for i in range(len(inferedValues))])

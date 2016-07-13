@@ -1,6 +1,7 @@
 import numpy as np
 import math 
 import plotting as plot
+import plotFunctions as pltF
 import matplotlib.pyplot as plt
 from fitnessFunctions import Fitness
 from EAs.geneticAlgorithm import GeneticAlgorithm
@@ -17,12 +18,13 @@ from FuzzyHelpers.fuzzySets import *
 from FuzzyHelpers.fuzzyInference import *
 from FuzzyHelpers.defuzzyfication import *
 from fileHelper import FileExtractor
+from timeDecorator import TimeDecorator
 
 dom = (-5, 12)
 dom2 = (-100,100)
+dom3 = (-1000,1000)
 
 np.set_printoptions(suppress=True)
-
 
 #plt.show()
 
@@ -32,11 +34,12 @@ np.set_printoptions(suppress=True)
 ####### Genetic Algorithm execution
 
 # gen = GeneticAlgorithm(200, 2, dom)
-# gen.fitness(fitness1)
+# gen.fitness(Fitness.fitness1)
 
-# gen.run(GASelectionTournament(), GACrossOverLinearOperator(), GAMutationGaussian())
-
+# TimeDecorator.time(gen.run, GASelectionTournament(), GACrossOverLinearOperator(), GAMutationGaussian())
 # print gen.population
+
+# pltF.Plot.show(gen.plot[0], gen.plot[1])
 
 ####### Differential Evolution execution
 
@@ -59,34 +62,67 @@ np.set_printoptions(suppress=True)
 
 ####### Diff Evolution with LSE
 
-# Fitness.initAeroData()
+# Fitness.initAeroData("aerogerador.dat")
 
-# de = DifferentialEvolution(20, 4, dom2)
+# chromossomeLength = 6
+
+# de = DifferentialEvolution(20, chromossomeLength, dom3)
 # print de.population
 
 # de.fitness(Fitness.LSE)
 
 # de.run(DESelectionBest(), DECrossOverBin(), DEMutationRand1())
 
-# print de.population
+# best = de.returnBest()
+
+# print best
+
+# polyfit = np.polyfit(Fitness.aerodata[:,0], Fitness.aerodata[:,1], 5)
+
+# print polyfit
+
+# plt.subplot(211)
+# plt.plot(np.linspace(0,14.4, 100), [sum([best[i]*(j**i) for i in range(chromossomeLength)]) for j in np.linspace(0,14.4, 100)], "b-")
+# plt.subplot(212)
+# plt.plot(np.linspace(0,14.4, 100), [sum([polyfit[chromossomeLength-1-i]*(j**i) for i in range(chromossomeLength)]) for j in np.linspace(0,14.4, 100)], "b-")
+# plt.plot(Fitness.aerodata[:,0], Fitness.aerodata[:,1], "rx")
+
+# plt.show()
 
 ####### Diff Evolution with LSEwR
 
-# Fitness.initAeroData()
+# Fitness.initAeroData("aerogerador.dat")
 
-# de = DifferentialEvolution(20, 4, dom2)
-# print de.population
+# chromossomeLength = 4
+
+# de = DifferentialEvolution(100, chromossomeLength, dom3)
 
 # de.fitness(Fitness.LSEwR)
 
 # de.run(DESelectionBest(), DECrossOverBin(), DEMutationRand1())
 
-# print de.population
+# best = de.returnBest()
+
+# pltF.Plot.show(de.plot[0], de.plot[1])
+
+# print best
+
+# polyfit = np.polyfit(Fitness.aerodata[:,0], Fitness.aerodata[:,1], 5)
+
+# print polyfit
+
+# plt.subplot(211)
+# plt.plot(np.linspace(0,14.4, 100), [sum([best[i]*(j**i) for i in range(chromossomeLength)]) for j in np.linspace(0,14.4, 100)], "b-")
+# plt.subplot(212)
+# plt.plot(np.linspace(0,14.4, 100), [sum([polyfit[chromossomeLength-1-i]*(j**i) for i in range(chromossomeLength)]) for j in np.linspace(0,14.4, 100)], "b-")
+# plt.plot(Fitness.aerodata[:,0], Fitness.aerodata[:,1], "rx")
+
+# plt.show()
 
 ########Fuzzy Algorithm Mandani
 
 # fuzzy_alg = Fuzzy()
-# fuzzy_alg.setFuzzyInputSets(TriangularFuzzySets([(-15,40), (30,50), (45,55), (50,70), (60,120)]))
+# fuzzy_alg.setFuzzyInputSets(TriangularFuzzySets([(-15,35), (30,50), (45,55), (50,70), (65,115)]))
 # fuzzy_alg.setFuzzyInputSets(TriangularFuzzySets([(-90,10), (0,50), (40,90), (80,100), (90,140), (130,180), (170,270)]))
 # fuzzy_alg.setFuzzyOutputSets(TriangularFuzzySets([(-30,-15), (-25,-5), (-10,0), (-5,5), (0,10), (5,25), (15,30)]))
 
@@ -99,17 +135,17 @@ np.set_printoptions(suppress=True)
 
 ########Fuzzy Algorithm Takagi-Sugeno
 
-Fitness.initGauss3Data("gauss3.dat")
+# Fitness.initGauss3Data("gauss3.dat")
 
-takagiInstance = TakagiSugenoInference(Fitness.takagiSugeno)
+# takagiInstance = TakagiSugenoInference(Fitness.takagiSugeno)
 
-print takagiInstance.fuzzyInterval
-print takagiInstance.ruleMatrix
+# print takagiInstance.fuzzyInterval
+# print takagiInstance.ruleMatrix
 
-fuzzy_alg = Fuzzy()
-fuzzy_alg.setFuzzyInputSets(GaussianFuzzySets(takagiInstance.fuzzyInterval))
+# fuzzy_alg = Fuzzy()
+# fuzzy_alg.setFuzzyInputSets(GaussianFuzzySets(takagiInstance.fuzzyInterval))
 
-solution = [fuzzy_alg.run(takagiInstance, [i]) for i in range(0,250)]
+# solution = [fuzzy_alg.run(takagiInstance, [i]) for i in range(0,250)]
 
 
 

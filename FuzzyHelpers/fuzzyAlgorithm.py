@@ -1,11 +1,15 @@
 import numpy as np
+from plotFunctions import Plot
+from fuzzyInference import *
 
 class Fuzzy():
 
 	def __init__(self):
+		quant = 1
 		self.fuzzyInputSets = []
 		self.fuzzyOutputSet = []
 		self.rules = []		
+		self.plot = [Plot() for i in range(quant)]
 
 #Setting Functions####################
 
@@ -14,7 +18,7 @@ class Fuzzy():
 
 	
 	def setFuzzyOutputSets(self, sets):
-		self.fuzzyOutputSet = sets
+		self.fuzzyOutputSet.append(sets)
 
 	
 	def setRules(self, rules):
@@ -33,11 +37,20 @@ class Fuzzy():
 
 
 	def run(self, inferenceAlg, value, defuzzyAlg=None):		
-		pertinenceValues = np.array([self.fuzzyInputSets[i].pertinence(value[i]) for i in range(len(self.fuzzyInputSets))])				
-		inferedFuzzySets = self.inferenceAlgorithm(value, inferenceAlg, pertinenceValues)		
+		self.plot[0].showFuzzySets(self.fuzzyInputSets)
+		pertinenceValues = np.array([self.fuzzyInputSets[i].pertinence(value[i]) for i in range(len(self.fuzzyInputSets))])		
+		self.plot[0].showPertinence(pertinenceValues, self.fuzzyInputSets, value)
+		inferedFuzzySets = self.inferenceAlgorithm(value, inferenceAlg, pertinenceValues)
+		print isinstance(inferenceAlg, TakagiSugenoInference)
+		if not isinstance(inferenceAlg, TakagiSugenoInference):				
+			self.plot[0].showInference(inferedFuzzySets, self.fuzzyOutputSet)
+
 		if defuzzyAlg is not None:
-			return self.defuzzyAlgorithm(defuzzyAlg, inferedFuzzySets)
+			centroid = self.defuzzyAlgorithm(defuzzyAlg, inferedFuzzySets)
+			self.plot[0].showCentroid(centroid, inferedFuzzySets, self.fuzzyOutputSet)
+			return centroid
 		else:
+			self.plot[0].showRects(inferenceAlg.ruleMatrix, self.fuzzyInputSets)		
 			return inferedFuzzySets
 
 

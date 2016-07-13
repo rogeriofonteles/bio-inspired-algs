@@ -37,6 +37,5 @@ class PSO(MetaHeuristics):
 			self.velocityUpdate()
 			self.positionUpdate()
 
-
-
-
+			self.plot[0].saveForPlot(self.population, self.fitness, "best")
+			self.plot[1].saveForPlot(self.population, self.fitness, "average")

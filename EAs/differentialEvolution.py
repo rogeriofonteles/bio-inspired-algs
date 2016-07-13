@@ -6,16 +6,13 @@ class DifferentialEvolution(evolAlg):
 	def __init__(self, populationNumber, dim, (x,y)):
 		evolAlg.__init__(self, populationNumber, dim, (x,y))		
 
-	def fitness(self, fitness):
-		self.fitness = fitness	
 
 	def run(self, selectionAlg, crossoverAlg, mutationAlg):		
-		for num in range(1,50):			
+		for num in range(1,200):			
 			self.parentsVector = self.mutationAlgorithm(mutationAlg)							
 			self.offsprings = self.crossoverAlgorithm(crossoverAlg)						
 			self.population = self.selectionAlgorithm(selectionAlg)		
-			print num	
-			
+			print num
 
-		#print np.array([self.fitness(x,y) for [x,y] in self.population])
-			
+			self.plot[0].saveForPlot(self.population, self.fitness, "best")
+			self.plot[1].saveForPlot(self.population, self.fitness, "average")			

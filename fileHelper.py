@@ -12,3 +12,16 @@ class FileExtractor():
 	def ruleMatrix():
 		rulematrixFile = open("rulematrix.dat")
 		return np.array([map(int, line.strip().split()) for line in rulematrixFile])
+
+
+	@staticmethod
+	def ANNMatrices(inputFileName, outputFileName):
+		unarrangedInputMatrix = FileExtractor.fileData(inputFileName)
+		unarrangedOutputMatrix = FileExtractor.fileData(outputFileName)
+
+		inputMatrix = [unarrangedInputMatrix[:,i] for i in range(len(unarrangedInputMatrix[0]))]
+		outputMatrix = [unarrangedOutputMatrix[:,i] for i in range(len(unarrangedInputMatrix[0]))]
+
+		return np.array(inputMatrix), np.array(outputMatrix)
+
+		

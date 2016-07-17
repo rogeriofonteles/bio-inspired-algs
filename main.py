@@ -17,6 +17,9 @@ from FuzzyHelpers.fuzzyAlgorithm import *
 from FuzzyHelpers.fuzzySets import *
 from FuzzyHelpers.fuzzyInference import *
 from FuzzyHelpers.defuzzyfication import *
+from ANN.simplePercepton import *
+from ANN.multiLayeredPerceptron import *
+from ANN.activationFunction import *
 from fileHelper import FileExtractor
 from timeDecorator import TimeDecorator
 
@@ -142,12 +145,50 @@ np.set_printoptions(suppress=True)
 # print takagiInstance.fuzzyInterval
 # print takagiInstance.ruleMatrix
 
-# fuzzy_alg = Fuzzy()
+# fuzzy_alg = Fuzzy()self.perceptrons[j].activationFunction.run
 # fuzzy_alg.setFuzzyInputSets(GaussianFuzzySets(takagiInstance.fuzzyInterval))
 
 # solution = [fuzzy_alg.run(takagiInstance, [i]) for i in range(0,250)]
 
+######## Neural Network
 
+inputMatrix, outputMatrix = FileExtractor.ANNMatrices("pacientes.txt", "patologias.txt")
+
+######## Simple Perceptron Network
+
+# accuracyVector = []
+
+# for i in range(100):
+# 	spn = SimplePerceptronNetwork(0.01, inputMatrix, outputMatrix, SignalActivation())
+# 	accuracyVector.append(spn.trainAndTest())
+
+# plt.plot(range(100), accuracyVector, "b-")
+# plt.plot([0,100], [np.min(accuracyVector), np.min(accuracyVector)], "r-")
+# plt.plot([0,100], [np.max(accuracyVector), np.max(accuracyVector)], "r-")
+# plt.plot([0,100], [np.mean(accuracyVector), np.mean(accuracyVector)], "g-")
+# plt.plot(range(100), [np.mean(accuracyVector) - np.std(accuracyVector) for i in range(100)], "yo")
+# plt.plot(range(100), [np.mean(accuracyVector) + np.std(accuracyVector) for i in range(100)], "yo")
+
+# plt.show()
+
+######## Multi-Layered Perceptron
+
+accuracyVector = []
+
+# for i in range(100):
+mlp = MultiLayeredPerceptron(0.01, inputMatrix, outputMatrix, SigmoidActivation(), 10)
+accuracyVector.append(mlp.trainAndTest())
+
+# plt.plot(range(100), accuracyVector, "b-")
+# plt.plot([0,100], [np.min(accuracyVector), np.min(accuracyVector)], "r-")
+# plt.plot([0,100], [np.max(accuracyVector), np.max(accuracyVector)], "r-")
+# plt.plot([0,100], [np.mean(accuracyVector), np.mean(accuracyVector)], "g-")
+# plt.plot(range(100), [np.mean(accuracyVector) - np.std(accuracyVector) for i in range(100)], "yo")
+# plt.plot(range(100), [np.mean(accuracyVector) + np.std(accuracyVector) for i in range(100)], "yo")
+
+# plt.show()
+
+#print spn.classify([ -1.,   2.,   2.,   0.,   3.,   0.,   0.,   0.,   0.,   1.,   0.,   0.,   0.,   0.,   0.,   0.,   3.,   2.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   3.,   0.,   0.,   0.,   1.,   0.,  55.])
 
 
 

@@ -36,7 +36,7 @@ class Perceptron():
 
 	def __init__(self, learningFactor, inputSize, _activationFunction):
 		self.eta = learningFactor
-		self.w = np.random.rand(inputSize)
+		self.w = 0.01*np.random.rand(inputSize)
 		self.activationFunction = _activationFunction
 
 

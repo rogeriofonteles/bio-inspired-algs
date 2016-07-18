@@ -162,7 +162,7 @@ inputMatrix, outputMatrix = FileExtractor.ANNMatrices("pacientes.txt", "patologi
 # 	spn = SimplePerceptronNetwork(0.01, inputMatrix, outputMatrix, SignalActivation())
 # 	accuracyVector.append(spn.trainAndTest())
 
-# plt.plot(range(100), accuracyVector, "b-")
+# plt.plot(rbange(100), accuracyVector, "b-")
 # plt.plot([0,100], [np.min(accuracyVector), np.min(accuracyVector)], "r-")
 # plt.plot([0,100], [np.max(accuracyVector), np.max(accuracyVector)], "r-")
 # plt.plot([0,100], [np.mean(accuracyVector), np.mean(accuracyVector)], "g-")
@@ -176,7 +176,7 @@ inputMatrix, outputMatrix = FileExtractor.ANNMatrices("pacientes.txt", "patologi
 accuracyVector = []
 
 # for i in range(100):
-mlp = MultiLayeredPerceptron(0.01, inputMatrix, outputMatrix, SigmoidActivation(), 10)
+mlp = MultiLayeredPerceptron(0.01, inputMatrix, outputMatrix, SigmoidActivation(), 7)
 accuracyVector.append(mlp.trainAndTest())
 
 # plt.plot(range(100), accuracyVector, "b-")

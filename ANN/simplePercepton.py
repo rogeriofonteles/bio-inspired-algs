@@ -5,7 +5,8 @@ from neuralNetwork import *
 class SimplePerceptronNetwork(NeuralNetwork):
 	
 	def __init__(self, learningFactor, _inputMatrix, _outputMatrix, activationFunc):		
-		NeuralNetwork.__init__(self, _inputMatrix, _outputMatrix, activationFunc)	
+		NeuralNetwork.__init__(self, _inputMatrix, _outputMatrix)
+		self.activationFunction = activationFunc	
 		self.perceptrons = [Perceptron(learningFactor, len(self.inputMatrix[0]), self.activationFunction) for i in range(len(self.outputMatrix[0]))]	
 
 
@@ -40,6 +41,7 @@ class SimplePerceptronNetwork(NeuralNetwork):
 		self.trainingOutput, self.testOutput = self.separateTraining(self.outputMatrix)			
 		self.training()
 		self.testing()
+		print self.confusionMatrix
 		return self.accuracy()
 
 

@@ -11,4 +11,4 @@ class TimeDecorator():
 	@classmethod
 	def time(cls, funct, *args, **kwargs):
 		wrapped = cls.wrapper(funct, *args, **kwargs)
-		print timeit.timeit(wrapped, number=1)
+		return timeit.timeit(wrapped, number=1)

@@ -23,7 +23,7 @@ class Plot:
 	@staticmethod
 	def show(*plotList):
 		[plt.plot(range(len(plot.yValues)), plot.yValues) for plot in plotList]
-		plt.show()
+		
 
 	@classmethod
 	def prepFuzzyData(cls, fuzzySet):

@@ -37,8 +37,8 @@ class Fitness():
 
 	@classmethod
 	def LSEwR(cls, beta):
-		squareError = np.array([(sum([beta[i]*(data[0]**i) for i in range(len(beta))]) - data[1])**2 for data in cls.aerodata])
-		return squareError.sum() + cls.w*LA.norm(beta)**2
+		squareError = np.array([((sum([beta[i]*(data[0]**i) for i in range(len(beta))]) - data[1])**2 + cls.w*LA.norm(beta)**2) for data in cls.aerodata])
+		return squareError.sum() 
 
 	@classmethod
 	def takagiSugeno(cls, chromossome, is_print=None):		

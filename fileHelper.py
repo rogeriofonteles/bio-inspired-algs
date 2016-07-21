@@ -24,4 +24,11 @@ class FileExtractor():
 
 		return np.array(inputMatrix), np.array(outputMatrix)
 
+	@staticmethod
+	def LSMMatrices(inputFileName, outputFileName):
+		inputMatrix = FileExtractor.fileData(inputFileName)
+		outputMatrix = FileExtractor.fileData(outputFileName)
+
+		return np.array(inputMatrix), np.array(outputMatrix)
+
 		

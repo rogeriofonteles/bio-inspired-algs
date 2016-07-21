@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 def plot3d(fun):
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
-	x = np.arange(-5.0, 12.0, 0.05)
-	y = np.arange(-5.0, 12.0, 0.05)
+	x = np.arange(-5.12, 5.12, 0.05)
+	y = np.arange(-5.12, 5.12, 0.05)
 	X, Y = np.meshgrid(x, y)
-	zs = np.array([fun(x,y) for x,y in zip(np.ravel(X), np.ravel(Y))])
+	zs = np.array([fun((x,y)) for x,y in zip(np.ravel(X), np.ravel(Y))])
 	Z = zs.reshape(X.shape)
 
 	ax.plot_surface(X, Y, Z)
@@ -21,10 +21,10 @@ def plot3d(fun):
 	plt.show()
 
 def plotcontour(fun):	
-	x = np.arange(-5.0, 12.0, 0.05)
-	y = np.arange(-5.0, 12.0, 0.05)
+	x = np.arange(-5.12, 5.12, 0.05)
+	y = np.arange(-5.12, 5.12, 0.05)
 	X, Y = np.meshgrid(x, y)
-	zs = np.array([fun(x,y) for x,y in zip(np.ravel(X), np.ravel(Y))])
+	zs = np.array([fun((x,y)) for x,y in zip(np.ravel(X), np.ravel(Y))])
 	Z = zs.reshape(X.shape)
 	
 	plt.figure()

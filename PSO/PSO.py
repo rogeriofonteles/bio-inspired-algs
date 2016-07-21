@@ -3,10 +3,10 @@ from metaHeuristics import MetaHeuristics
 
 class PSO(MetaHeuristics):
 
-	def __init__(self, populationNumber, (x, y), _c1, _c2):
+	def __init__(self, populationNumber, dim, (x, y), _c1, _c2):
 		MetaHeuristics.__init__(self)
-		# MetaHeuristics.generateFuncPopulation(self, populationNumber, (x,y))	
-		MetaHeuristics.generateEquallySpreadPopulation(self, populationNumber, (x,y))	
+		MetaHeuristics.generateFuncPopulation(self, populationNumber, dim, (x,y))	
+		#MetaHeuristics.generateEquallySpreadPopulation(self, populationNumber, (x,y))	
 
 		self.particleBest = []
 		self.particleVelocities = np.zeros(self.population.shape)
@@ -30,12 +30,17 @@ class PSO(MetaHeuristics):
 	def globalBestSelection(self):
 		self.globalBest = self.particleBest[np.argmin([self.fitness(particleBestValue) for particleBestValue in self.particleBest])]
 
+	def returnBest(self):
+		return self.population[np.argmin([self.fitness(self.population[i]) for i in range(len(self.population))])]
+
 	def run(self):
-		for i in xrange(20):
+		for i in xrange(50):
 			self.particleBestSelection()
 			self.globalBestSelection()
 			self.velocityUpdate()
 			self.positionUpdate()
+
+			print self.fitness(self.returnBest())
 
 			self.plot[0].saveForPlot(self.population, self.fitness, "best")
 			self.plot[1].saveForPlot(self.population, self.fitness, "average")
